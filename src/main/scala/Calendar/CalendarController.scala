@@ -5,7 +5,9 @@ import akka.http.scaladsl.server.{Directives, Route}
 import com.datastax.driver.core.{Cluster, Row, Session}
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 object CalendarController extends Directives with CalendarJsonSupport {
+
   implicit val DBConnect = DB.Connect;
+
   def CalendarMapper (DB: Session) : List[CalendarDate] = {
     val QueryRS = DB.execute("SELECT * from starterapp.Calendar WHERE dayname='Monday' LIMIT 10 ALLOW FILTERING" )
     val QueryList = QueryRS.all().toArray.toList.map(row => {

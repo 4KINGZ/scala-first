@@ -21,10 +21,11 @@ case class CalendarDate(
                                yearmonthnum : String = "",
                                yearquarternum : String = ""
                              )
+
+case class Calendar(items: List[CalendarDate])
+
 trait CalendarJsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
   implicit val dateFormat = jsonFormat16(CalendarDate)
   implicit val calFormat = jsonFormat1(Calendar)
 }
 
-
-case class Calendar(items: List[CalendarDate])

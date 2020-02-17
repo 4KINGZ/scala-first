@@ -2,6 +2,7 @@ package CommonStuff
 
 import Calendar._
 import Identity._
+import Sales._
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
@@ -31,7 +32,8 @@ object DB {
 }
 object MainRouter {
 
-  val Routes = cors() {CalendarController.CalendarRoute ~ IdentityController.LoginRoute}
+  val Routes = cors() {CalendarController.CalendarRoute ~
+                      IdentityController.LoginRoute ~ SalesProvider.SalesRoute}
 }
 
 
