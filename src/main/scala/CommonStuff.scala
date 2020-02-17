@@ -7,8 +7,15 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.datastax.driver.core.{Cluster, Session}
 
-import akka.http.scaladsl.server.Directives._
 import scala.io.StdIn
+import akka.http.scaladsl.model.HttpMethods._
+import akka.http.scaladsl.model.headers._
+import akka.http.scaladsl.model.{HttpResponse, StatusCodes}
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.directives.RouteDirectives.complete
+import akka.http.scaladsl.server.{Directive0, Route}
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
+import scala.concurrent.duration._
 
 object ServerConfig {
   val http_interface = "localhost"
@@ -24,8 +31,10 @@ object DB {
 }
 object MainRouter {
 
-  val Routes = CalendarController.CalendarRoute ~ IdentityController.LoginRoute
+  val Routes = cors() {CalendarController.CalendarRoute ~ IdentityController.LoginRoute}
 }
+
+
 
 object Server{
 

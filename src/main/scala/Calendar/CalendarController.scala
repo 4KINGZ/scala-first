@@ -1,9 +1,9 @@
 package Calendar
 
 import CommonStuff.DB
-import akka.http.scaladsl.server.Directives
+import akka.http.scaladsl.server.{Directives, Route}
 import com.datastax.driver.core.{Cluster, Row, Session}
-
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 object CalendarController extends Directives with CalendarJsonSupport {
   implicit val DBConnect = DB.Connect;
   def CalendarMapper (DB: Session) : List[CalendarDate] = {
@@ -31,10 +31,12 @@ object CalendarController extends Directives with CalendarJsonSupport {
     })
     QueryList
     }
-  val CalendarRoute =
-    path("calendar") {
-      get {
-        complete(CalendarMapper(DBConnect))
+  val CalendarRoute : Route =
+    cors() {
+      path("calendar") {
+        get {
+          complete(CalendarMapper(DBConnect))
+        }
       }
     }
 }

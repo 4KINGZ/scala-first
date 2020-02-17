@@ -17,3 +17,4 @@ resolvers ++= Seq("snapshots", "releases").map(Resolver.sonatypeRepo)
 libraryDependencies ++= Seq(
   "org.mindrot"  % "jbcrypt"   % "0.3m"
 )
+libraryDependencies += "ch.megard" %% "akka-http-cors" % "0.4.2"
